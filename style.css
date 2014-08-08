@@ -1,0 +1,40 @@
+body {
+    font-family: Arial, Verdana, sans-serif;
+
+    background: #fefefe;
+}
+
+div#container {
+    width: 800px;
+    margin: 25px auto;
+}
+
+table#game-map {
+    border-collapse: collapse;
+    border: 1px solid silver;
+    margin: 0 auto;
+}
+
+table#game-map td {
+    border: 1px solid #ddd;
+    padding: 0;
+}
+
+table#game-map td div.inner {
+    width: 25px;
+    height: 25px;
+    padding: 0;
+
+    text-align: center;
+    font-weight: bold;
+
+    background: #ddfedd;
+}
+
+table#game-map td div.inner.player {
+    background: silver;
+}
+
+table#game-map td div.inner.water {
+    background: blue;
+}
