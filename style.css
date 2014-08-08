@@ -5,9 +5,16 @@ body {
 }
 
 div#container {
-    width: 800px;
+    width: 1000px;
     margin: 25px auto;
+
+    background: #eeeeff;
 }
+
+section { vertical-align: top; }
+section#game { width: 650px; display: inline-block; }
+section#inventory { width: 100px; display: inline-block; }
+section#dialogue { width: 242px; display: inline-block; }
 
 table#game-map {
     border-collapse: collapse;
@@ -31,10 +38,45 @@ table#game-map td div.inner {
     background: #ddfedd;
 }
 
-table#game-map td div.inner.player {
-    background: silver;
+section#inventory {
+    margin-top: 0.75em;
 }
 
-table#game-map td div.inner.water {
-    background: blue;
+section#inventory div.inventory-item {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto;
 }
+
+section#dialogue {
+    background: #eee;
+    color: gray;
+}
+
+section#dialogue div {
+    width: 210px;
+    margin: 0.75em auto;
+
+    border: 1px solid silver;
+
+    background-color: silver;
+    background-repeat: no-repeat;
+    background-position: 2px 4px;
+}
+
+section#dialogue div p {
+    margin: 0;
+    margin-left: 30px;
+    padding: 8px 0;
+    padding-left: 6px;
+    background: #eee;
+}
+
+table#game-map td div.inner.player { background: white; }
+table#game-map td div.inner.water { background: blue url('/images/aquarius.png'); }
+table#game-map td div.inner.tree { background: #ada url('/images/beech.png'); }
+
+section#inventory div.inventory-item.lumber { background: url('/images/wood-pile.png'); }
+
+section#dialogue div.player { background-image: url('/images/cowled.png'); }
+section#dialogue div.tree { background-image: url('/images/beech.png'); }
