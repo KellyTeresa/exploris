@@ -72,10 +72,10 @@ section#dialogue div p {
     background: #eee;
 }
 
-table#game-map td div.inner.player { background: white; }
 table#game-map td div.inner.water { background: blue url('/images/aquarius.png'); }
 table#game-map td div.inner.tree { background: #ada url('/images/beech.png'); }
 table#game-map td div.inner.apple { background-image: url('/images/shiny-apple.png'); }
+table#game-map td div.inner.player { background-color: white; }
 
 section#inventory div.inventory-item.lumber { background: url('/images/wood-pile.png'); }
 
