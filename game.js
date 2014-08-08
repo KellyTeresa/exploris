@@ -29,6 +29,10 @@ var trees = [
     {x: 13, y: 5}
 ];
 
+var apples = [
+    {x: 6, y: 6}
+];
+
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
@@ -43,7 +47,7 @@ function drawRiver(start, path, gameMap) {
             'l': function(){ position.y--; },
             'd': function(){ position.x++; }
         })[step]();
-        gameMap.data[position.x][position.y].addWater();
+        gameMap.data[position.x][position.y].addItem('water');
     });
 }
 
@@ -72,8 +76,7 @@ var Cell = {
     create: function() {
         var obj = Object.create(Cell);
 
-        obj.isWater = false;
-        obj.hasTree = false;
+        obj.contents = {};
 
         return obj;
     },
@@ -88,19 +91,14 @@ var Cell = {
         this.element.classList.remove('player');
     },
 
-    addWater: function() {
-        this.isWater = true;
-        this.element.classList.add('water');
+    addItem: function(name) {
+        this.contents[name] = true;
+        this.element.classList.add(name);
     },
 
-    addTree: function() {
-        this.hasTree = true;
-        this.element.classList.add('tree');
-    },
-
-    killTree: function() {
-        this.hasTree = false;
-        this.element.classList.remove('tree');
+    removeItem: function(name) {
+        delete this.contents[name];
+        this.element.classList.remove(name);
     }
 };
 
@@ -132,10 +130,10 @@ var game = {
     },
 
     chopTree: function() {
-        if (!this.player.cell.hasTree) { return false; }
+        if (!('tree' in this.player.cell.contents)) { return false; }
 
         this.player.addInventory('lumber');
-        this.player.cell.killTree();
+        this.player.cell.removeItem('tree');
 
         var curses = ['mother piss', 'son of a bitch', 'shit', 'fuck', 'oh god no', 'you don\'t even have a fucking axe'];
         htmlView.addDialogue('tree', curses[getRandomInt(0, curses.length)]);
@@ -182,7 +180,7 @@ var game = {
 
         var newCell = this.map.get(newPos);
 
-        if (newCell.isWater) { return false; }
+        if ('water' in newCell.contents) { return false; }
 
         if (this.player.cell) {
             this.player.cell.playerLeave();
@@ -262,10 +260,24 @@ function main() {
     drawRiver(river.start, river.path, game.map);
 
     trees.forEach(function(position) {
-        game.map.get(position).addTree();
+        game.map.get(position).addItem('tree');
     });
 
-    htmlView.addDialogue('player', 'where am I...');
+    apples.forEach(function(position) {
+        game.map.get(position).addItem('apple');
+    });
+
+    setTimeout(function() {
+        htmlView.addDialogue('player', 'where am I..');
+    }, 1500);
+
+    setTimeout(function() {
+        htmlView.addDialogue('player', 'hello?');
+    }, 5000);
+
+    setTimeout(function() {
+        htmlView.addDialogue('player', 'this place fuckin sucks');
+    }, 15000);
 }
 
 main();
