@@ -1,8 +1,3 @@
-var GameObject = Class.extend('GameObject', {
-    objectType: 'game-object',
-    summary: 'A thing.'
-});
-
 var Game = Class.extend('Game', {
     initialize: function(htmlView) {
         this.view = htmlView;
