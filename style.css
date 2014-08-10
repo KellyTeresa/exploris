@@ -23,7 +23,6 @@ table#game-map {
 }
 
 table#game-map td {
-    border: 1px solid #ddd;
     padding: 0;
 }
 
@@ -72,10 +71,11 @@ section#dialogue div p {
     background: #eee;
 }
 
-table#game-map td div.inner.water { background: blue url('/images/aquarius.png'); }
-table#game-map td div.inner.tree { background: #ada url('/images/beech.png'); }
+table#game-map td div.inner.water { background-image: url('/images/aquarius.png'); }
+table#game-map td div.inner.tree { background-image: url('/images/beech.png'); }
+table#game-map td div.inner.ammonite { background-image: url('/images/ammonite.png'); }
 table#game-map td div.inner.apple { background-image: url('/images/shiny-apple.png'); }
-table#game-map td div.inner.player { background-color: white; }
+table#game-map td div.inner.player { background-image: url('/images/cowled.png'); }
 
 section#inventory div.inventory-item.lumber { background: url('/images/wood-pile.png'); }
 
