@@ -1,91 +1,3 @@
-var GAME_MAP_WIDTH = 25,
-    GAME_MAP_HEIGHT = 25,
-    PLAYER_START_POSITION = {x: 5, y: 5},
-    KEY_COMMANDS = {
-        'c': 'chopTree'
-    },
-    ammonitePos = {x: 8, y: 8}
-    ;
-
-function populateMap(map) {
-    var river = {
-        start: {x: 8, y: -1},
-        path: 'r r r u r r u u u r u r r r u'.split(' ')
-    };
-    var trees = [
-        {x: 1, y: 1},
-        {x: 12, y: 13},
-        {x: 12, y: 14},
-        {x: 11, y: 13},
-        {x: 8, y: 4},
-        {x: 8, y: 5},
-        {x: 9, y: 7},
-        {x: 10, y: 6},
-        {x: 11, y: 6},
-        {x: 10, y: 7},
-        {x: 11, y: 7},
-        {x: 11, y: 5},
-        {x: 12, y: 8},
-        {x: 13, y: 5}
-    ];
-    var apples = [ {x: 6, y: 6} ];
-
-    map.drawRiver(river.start, river.path);
-
-    trees.forEach(function(position) {
-        map.get(position).addItem('tree');
-    });
-
-    apples.forEach(function(position) {
-        map.get(position).addItem('apple');
-    });
-}
-
-function populateDialogue(htmlView) {
-    setTimeout(function() {
-        htmlView.addDialogue('player', 'where am I..');
-    }, 1500);
-
-    setTimeout(function() {
-        htmlView.addDialogue('player', 'hello?');
-    }, 5000);
-
-    setTimeout(function() {
-        htmlView.addDialogue('player', 'this place fuckin sucks');
-    }, 15000);
-
-    setTimeout(function() {
-        htmlView.addDialogue('ammonite', 'wonk');
-    }, 7500);
-}
-
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-}
-
-var Class = {
-    constructor: {name: 'Class'},
-
-    extend: function(name, properties) {
-        if(typeof(properties) === 'undefined') properties = {};
-
-        properties.constructor = {name: name};
-
-        var obj = Object.create(this);
-        Object.getOwnPropertyNames(properties).forEach(function(name) {
-            obj[name] = properties[name];
-        });
-
-        return obj;
-    },
-
-    create: function() {
-        var obj = Object.create(this);
-        obj.initialize.apply(obj, arguments);
-        return obj;
-    },
-};
-
 var Creature = Class.extend('Creature', {
     initialize: function(view) {
         this.inventory = [];
@@ -109,20 +21,37 @@ var Creature = Class.extend('Creature', {
 });
 
 var Player = Creature.extend('Player', {
-    creatureType: 'player'
+    creatureType: 'player',
+
+    chopTree: function() {
+        this.cell.contents.forEach(function(item) {
+            if (item.itemType == 'tree') {
+                this.addInventory('lumber');
+                this.cell.removeItem(item);
+
+                var curses = ['mother piss', 'son of a bitch', 'shit', 'fuck', 'oh god no', 'you don\'t even have a fucking axe'];
+                this.view.addDialogue('tree', curses[getRandomInt(0, curses.length)]);
+            }
+        }.bind(this));
+    },
+
+    getItem: function() {
+        var item = this.cell.popItem();
+        if (item) {
+            this.addInventory(item.itemType);
+        }
+    }
 });
 
 var Ammonite = Creature.extend('Ammonite', {
     creatureType: 'ammonite'
 });
 
-var GameMap = {
-    create: function() {
-        var map = Object.create(GameMap);
-        map.width = GAME_MAP_WIDTH;
-        map.height = GAME_MAP_HEIGHT;
-        map.data = Cell.createCellTable(map.width, map.height);
-        return map;
+var GameMap = Class.extend('GameMap', {
+    initialize: function() {
+        this.width = GAME_MAP_WIDTH;
+        this.height = GAME_MAP_HEIGHT;
+        this.data = Cell.createCellTable(this.width, this.height);
     },
 
     positionOutOfBounds: function(pos) {
@@ -157,7 +86,7 @@ var GameMap = {
         var newPos = this.calculateNewPosition(cell.position, change);
         if (this.positionOutOfBounds(newPos)) { return false; }
         var newCell = this.get(newPos);
-        if ('water' in newCell.contents) { return false; }
+        if (newCell.hasWater()) { return false; }
         return newCell;
     },
 
@@ -177,17 +106,30 @@ var GameMap = {
                 'l': function(){ position.y--; },
                 'd': function(){ position.x++; }
             })[step]();
-            this.get(position).addItem('water');
+            this.get(position).addItem(Water.create());
         }.bind(this));
     }
-};
+});
 
-var Cell = {
-    create: function(x, y) {
-        var cell = Object.create(Cell);
-        cell.position = {x: x, y: y};
-        cell.contents = {};
-        return cell;
+var Item = Class.extend('Item', {
+});
+
+var Apple = Item.extend('Apple', {
+    itemType: 'apple'
+});
+
+var Tree = Item.extend('Tree', {
+    itemType: 'tree'
+});
+
+var Water = Item.extend('Water', {
+    itemType: 'water'
+});
+
+var Cell = Class.extend('Cell', {
+    initialize: function(x, y) {
+        this.position = {x: x, y: y};
+        this.contents = [];
     },
 
     createCellTable: function(width, height) {
@@ -210,16 +152,72 @@ var Cell = {
         this.element.classList.remove(creature.creatureType);
     },
 
-    addItem: function(name) {
-        this.contents[name] = true;
-        this.element.classList.add(name);
+    addItem: function(item) {
+        this.contents.push(item)
+        this.element.classList.add(item.itemType);
     },
 
-    removeItem: function(name) {
-        delete this.contents[name];
-        this.element.classList.remove(name);
+    removeItem: function(item) {
+        var index = this.contents.indexOf(item);
+        this.contents.splice(index, 1)
+        this.element.classList.remove(item.itemType);
+    },
+
+    popItem: function() {
+        var item = this.contents[0];
+        if (typeof(item) === 'undefined') {
+            return null;
+        }
+        this.removeItem(item);
+        return item;
+    },
+
+    hasWater: function() {
+        var hasWater = false;
+        this.contents.forEach(function(item) {
+            if (item.itemType == 'water') {
+                hasWater = true;
+            }
+        });
+        return hasWater;
     }
-};
+});
+
+var KeyboardInput = Class.extend('KeyboardInput', {
+    initialize: function() {
+        this.bindings = {};
+    },
+
+    handleKey: function(event) {
+        var mappings = {
+            37: 'left',
+            38: 'up',
+            39: 'right',
+            40: 'down',
+            67: 'c',
+            71: 'g'
+        };
+
+        if (event.keyCode in mappings) {
+            var keyPressed = mappings[event.keyCode];
+            this.bindings[keyPressed]();
+        } else {
+            console.log("Unknown keypress", event.keyCode);
+        }
+    },
+
+    startListening: function(listener) {
+        window.addEventListener(
+            'keydown',
+            this.handleKey.bind(this),
+            false
+        );
+    },
+
+    bindKey: function(key, callback) {
+        this.bindings[key] = callback;
+    }
+});
 
 var Game = Class.extend('Game', {
     initialize: function(htmlView) {
@@ -230,8 +228,11 @@ var Game = Class.extend('Game', {
     },
 
     start: function() {
-        this.initializeKeyboardListener();
         this.view.initializeMap(this.map.data);
+        this.initializeCreatures();
+    },
+
+    initializeCreatures: function() {
         this.map.placeCreature(this.player, PLAYER_START_POSITION);
 
         // initialize creature(s)
@@ -243,42 +244,6 @@ var Game = Class.extend('Game', {
         }.bind(this), 1500);
     },
 
-    initializeKeyboardListener: function(listener) {
-        window.addEventListener('keydown', function(event) {
-            var moveMapping = {
-                37: 'left',
-                38: 'up',
-                39: 'right',
-                40: 'down'
-            };
-
-            if (event.keyCode in moveMapping) {
-                var dir = moveMapping[event.keyCode];
-                this.tryCreatureMove(this.player, dir);
-            }
-
-            var mapping = {
-                67: 'c'
-            };
-
-            if (event.keyCode in mapping) {
-                var keyPressed = mapping[event.keyCode];
-                var functionName = KEY_COMMANDS[keyPressed];
-                this[functionName]();
-            }
-        }.bind(this), false);
-    },
-
-    chopTree: function() {
-        if (!('tree' in this.player.cell.contents)) { return false; }
-
-        this.player.addInventory('lumber');
-        this.player.cell.removeItem('tree');
-
-        var curses = ['mother piss', 'son of a bitch', 'shit', 'fuck', 'oh god no', 'you don\'t even have a fucking axe'];
-        this.view.addDialogue('tree', curses[getRandomInt(0, curses.length)]);
-    },
-
     tryCreatureMove: function(creature, dir) {
         var newCell = this.map.getMoveCell(creature.cell, dir);
         if (newCell) {
@@ -286,66 +251,3 @@ var Game = Class.extend('Game', {
         }
     }
 });
-
-var HtmlView = Class.extend('HtmlView', {
-    initialize: function() {
-        this.map = document.getElementById('game-map');
-        this.inventory = document.getElementById('inventory');
-        this.dialogue = document.getElementById('dialogue');
-        this.keybar = document.getElementById('keybar');
-    },
-
-    initializeMap: function(mapData) {
-        mapData.forEach(function(row) {
-            var htmlRow = document.createElement('tr');
-
-            row.forEach(function(cell) {
-                // some roundabout bullshit because you can't
-                // fix height of td's
-                var element = document.createElement('td');
-                var inner = document.createElement('div');
-                inner.classList.add('inner');
-                cell.element = inner;
-                element.appendChild(inner);
-                htmlRow.appendChild(element);
-            }.bind(this));
-
-            this.map.appendChild(htmlRow);
-        }.bind(this));
-    },
-
-    addInventory: function(inventoryItem) {
-        var newDiv = document.createElement('div');
-        inventoryItem.element = newDiv;
-        newDiv.classList.add('item');
-        newDiv.classList.add('ui');
-        newDiv.classList.add('lumber');
-        newDiv.classList.add(inventoryItem.name);
-        this.inventory.appendChild(newDiv);
-    },
-
-    addDialogue: function(who, message) {
-        var newDiv = document.createElement('div');
-        newDiv.classList.add(who);
-        newDiv.classList.add('ui');
-        newDiv.classList.add('attached');
-        newDiv.classList.add('segment');
-        newDiv.classList.add('message');
-        newDiv.innerText = message;
-        $(newDiv).transition('fade down');
-        this.dialogue.appendChild(newDiv);
-    }
-
-});
-
-function main() {
-    var htmlView = HtmlView.create();
-    var game = Game.create(htmlView);
-
-    game.start();
-
-    populateMap(game.map);
-    populateDialogue(htmlView);
-}
-
-main();

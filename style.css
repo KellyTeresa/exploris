@@ -1,12 +1,15 @@
 /* SEMANTIC OVERRIDES */
 
 .ui.grid > .column {
-    padding: 0 .5em;
-    margin: 0;
+    margin: 5px 0;
 }
 
 #inventory .item {
     margin-bottom: 10px;
+}
+
+#keybar .ui.label {
+    margin-right: .5em;
 }
 
 /* MY CSS */
@@ -26,6 +29,7 @@
 
 body {
     font-family: Arial, Verdana, sans-serif;
+    background-color: #eee;
 }
 
 div#container {
@@ -34,6 +38,7 @@ div#container {
 table#game-map {
     border-collapse: collapse;
     margin: 0 auto;
+    border: 5px inset #edd;
 }
 
 table#game-map td {
@@ -48,10 +53,11 @@ table#game-map td div.inner {
     text-align: center;
     font-weight: bold;
 
-    background: #ddfedd;
+    background-color: #ddfedd;
 }
 
 section#dialogue {
+    margin-top: 2px;
     color: gray;
 }
 
@@ -64,18 +70,16 @@ section#dialogue {
 section#dialogue div p {
 }
 
-table#game-map td .inner.water { background-image: url('/images/aquarius.png'); }
-table#game-map td .inner.tree { background-image: url('/images/beech.png'); }
-table#game-map td .inner.apple { background-image: url('/images/shiny-apple.png'); }
+/* backgrounds on the bottom */
+.water { background-image: url('/images/aquarius.png'); }
+
+/* items in the middle */
+.lumber { background-image: url('/images/wood-pile.png'); }
+.apple { background-image: url('/images/shiny-apple.png'); }
+.tree { background-image: url('/images/beech.png'); }
 
 /* creatures come after because they should go on top */
-table#game-map td .inner.ammonite { background-image: url('/images/ammonite.png'); }
+.ammonite { background-image: url('/images/ammonite.png'); }
 
 /* player should always be the topmost */
-table#game-map td .inner.player { background-image: url('/images/cowled.png'); }
-
-section#inventory .item.lumber { background-image: url('/images/wood-pile.png'); }
-
-section#dialogue .player { background-image: url('/images/cowled.png'); }
-section#dialogue .tree { background-image: url('/images/beech.png'); }
-section#dialogue .ammonite { background-image: url('/images/ammonite.png'); }
+.player { background-image: url('/images/cowled.png'); }
