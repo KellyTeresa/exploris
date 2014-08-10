@@ -71,16 +71,25 @@ section#dialogue div p {
 }
 
 /* backgrounds on the bottom */
-.water { background-image: url('/images/aquarius.png'); }
+#game-map .water, #dialogue .water { background-image: url('/images/aquarius.png'); }
 
 /* items in the middle */
-.lumber { background-image: url('/images/wood-pile.png'); }
-.apple { background-image: url('/images/shiny-apple.png'); }
-.tree { background-image: url('/images/beech.png'); }
-.flame { background-image: url('/images/flame.png'); }
+#game-map .lumber, #dialogue .lumber { background-image: url('/images/wood-pile.png'); }
+#game-map .apple, #dialogue .apple { background-image: url('/images/shiny-apple.png'); }
+#game-map .tree, #dialogue .tree { background-image: url('/images/beech.png'); }
+#game-map .flame, #dialogue .flame { background-image: url('/images/flame.png'); }
 
 /* creatures come after because they should go on top */
-.ammonite { background-image: url('/images/ammonite.png'); }
+#game-map .ammonite, #dialogue .ammonite { background-image: url('/images/ammonite.png'); }
 
 /* player should always be the topmost */
-.player { background-image: url('/images/cowled.png'); }
+#game-map .player, #dialogue .player { background-image: url('/images/cowled.png'); }
+
+/* inventory has bigger size */
+#inventory .water { background-image: url('/images/aquarius-500.png'); background-size: 50px; }
+#inventory .lumber { background-image: url('/images/wood-pile-500.png'); background-size: 50px; }
+#inventory .apple { background-image: url('/images/shiny-apple-500.png'); background-size: 50px; }
+#inventory .tree { background-image: url('/images/beech-500.png'); background-size: 50px; }
+#inventory .flame { background-image: url('/images/flame-500.png'); background-size: 50px; }
+#inventory .ammonite { background-image: url('/images/ammonite-500.png'); background-size: 50px; }
+#inventory .player { background-image: url('/images/cowled-500.png'); background-size: 50px; }
