@@ -154,9 +154,15 @@ var Game = Class.extend('Game', {
     tryCreatureMove: function(creature, dir) {
         var newCell = this.map.getMoveCell(creature.cell, dir);
         if (newCell) {
-            if (!newCell.isPassable()) { return false; }
-            if (newCell.hasDoor() && !creature.canOperateDoors) { return false; }
-            creature.move(newCell);
+            if (this.creatureCanEnterCell(creature, newCell)) {
+                creature.move(newCell);
+            }
         }
+    },
+
+    creatureCanEnterCell: function(creature, cell) {
+        if (!cell.isPassable()) { return false; }
+        if (cell.hasDoor() && !creature.canOperateDoors) { return false; }
+        return true;
     }
 });
