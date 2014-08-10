@@ -40,6 +40,10 @@ var Player = Creature.extend('Player', {
         if (item) {
             this.addInventory(item.itemType);
         }
+    },
+
+    lightFlame: function() {
+        this.cell.addItem(Flame.create());
     }
 });
 
@@ -111,21 +115,6 @@ var GameMap = Class.extend('GameMap', {
     }
 });
 
-var Item = Class.extend('Item', {
-});
-
-var Apple = Item.extend('Apple', {
-    itemType: 'apple'
-});
-
-var Tree = Item.extend('Tree', {
-    itemType: 'tree'
-});
-
-var Water = Item.extend('Water', {
-    itemType: 'water'
-});
-
 var Cell = Class.extend('Cell', {
     initialize: function(x, y) {
         this.position = {x: x, y: y};
@@ -180,42 +169,6 @@ var Cell = Class.extend('Cell', {
             }
         });
         return hasWater;
-    }
-});
-
-var KeyboardInput = Class.extend('KeyboardInput', {
-    initialize: function() {
-        this.bindings = {};
-    },
-
-    handleKey: function(event) {
-        var mappings = {
-            37: 'left',
-            38: 'up',
-            39: 'right',
-            40: 'down',
-            67: 'c',
-            71: 'g'
-        };
-
-        if (event.keyCode in mappings) {
-            var keyPressed = mappings[event.keyCode];
-            this.bindings[keyPressed]();
-        } else {
-            console.log("Unknown keypress", event.keyCode);
-        }
-    },
-
-    startListening: function(listener) {
-        window.addEventListener(
-            'keydown',
-            this.handleKey.bind(this),
-            false
-        );
-    },
-
-    bindKey: function(key, callback) {
-        this.bindings[key] = callback;
     }
 });
 

@@ -3,7 +3,7 @@ var HtmlView = Class.extend('HtmlView', {
         this.map = document.getElementById('game-map');
         this.inventory = document.getElementById('inventory');
         this.dialogue = document.getElementById('dialogue');
-        this.keybar = document.getElementById('keybar');
+        this.keybar = document.getElementById('keybar').children[0];
     },
 
     initializeMap: function(mapData) {
@@ -23,6 +23,14 @@ var HtmlView = Class.extend('HtmlView', {
 
             this.map.appendChild(htmlRow);
         }.bind(this));
+    },
+
+    populateKeybar: function(keymaps) {
+        var tmpl = _.template($("#keybarTemplate").text());
+        for (key in keymaps) {
+            var data = {key: key, command: keymaps[key]};
+            $(this.keybar).append(tmpl(data));
+        }
     },
 
     addInventory: function(inventoryItem) {

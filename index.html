@@ -9,6 +9,8 @@
 
         <script type="text/javascript" src="jquery-2.1.1.js"></script>
         <script type="text/javascript" src="semantic/javascript/semantic.js"></script>
+
+        <script type="text/javascript" src="underscore.js"></script>
     </head>
     <body>
 
@@ -16,15 +18,6 @@
             <div class="column">
                 <section id="keybar" class="ui top attached segment">
                     <div class="ui horizontal small divided list">
-
-                        <div class="item">
-                            <div class="content"><div class="ui small label">c</div>chopTree</div>
-                        </div>
-
-                        <div class="item">
-                            <div class="content"><div class="ui small label">g</div>getItem</div>
-                        </div>
-
                     </div>
                 </section>
                 <div class="ui attached segment">
@@ -51,9 +44,19 @@
             </div>
         </div>
 
+        <script id="keybarTemplate" type="text/template" style="display: none;">
+            <div class="item">
+                <div class="content">
+                    <div class="ui small label"><%= key %></div><%= command %>
+                </div>
+            </div>
+        </script>
+
         <script src="class.js"></script>
         <script src="util.js"></script>
         <script src="htmlview.js"></script>
+        <script src="keyboardInput.js"></script>
+        <script src="items.js"></script>
         <script src="game.js"></script>
         <script src="main.js"></script>
         <script>main();</script>

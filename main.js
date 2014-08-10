@@ -3,7 +3,8 @@ var GAME_MAP_WIDTH = 25,
     PLAYER_START_POSITION = {x: 5, y: 5},
     KEY_COMMANDS = {
         'c': 'chopTree',
-        'g': 'getItem'
+        'g': 'getItem',
+        'f': 'lightFlame'
     },
     ammonitePos = {x: 8, y: 8}
     ;
@@ -84,6 +85,7 @@ function main() {
     game.start();
     keyboardInput.startListening();
 
+    htmlView.populateKeybar(KEY_COMMANDS);
     populateMap(game.map);
     populateDialogue(htmlView);
 }

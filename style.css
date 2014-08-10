@@ -77,6 +77,7 @@ section#dialogue div p {
 .lumber { background-image: url('/images/wood-pile.png'); }
 .apple { background-image: url('/images/shiny-apple.png'); }
 .tree { background-image: url('/images/beech.png'); }
+.flame { background-image: url('/images/flame.png'); }
 
 /* creatures come after because they should go on top */
 .ammonite { background-image: url('/images/ammonite.png'); }
