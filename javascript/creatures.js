@@ -1,4 +1,5 @@
-var Creature = Class.extend('Creature', {
+var Creature = GameObject.extend('Creature', {
+    objectType: 'creature',
     canOperateDoors: false,
 
     initialize: function(view) {
@@ -23,12 +24,12 @@ var Creature = Class.extend('Creature', {
 });
 
 var Player = Creature.extend('Player', {
-    creatureType: 'player',
+    objectType: 'player',
     canOperateDoors: true,
 
     chopTree: function() {
         this.cell.contents.forEach(function(item) {
-            if (item.itemType == 'tree') {
+            if (item.objectType == 'tree') {
                 this.addInventory('lumber');
                 this.cell.removeItem(item);
 
@@ -41,7 +42,7 @@ var Player = Creature.extend('Player', {
     getItem: function() {
         var item = this.cell.popItem();
         if (item) {
-            this.addInventory(item.itemType);
+            this.addInventory(item.objectType);
         }
     },
 
@@ -59,7 +60,5 @@ var Player = Creature.extend('Player', {
 });
 
 var Ammonite = Creature.extend('Ammonite', {
-    creatureType: 'ammonite'
+    objectType: 'ammonite'
 });
-
-

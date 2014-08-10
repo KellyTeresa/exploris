@@ -22,12 +22,15 @@
                 <div class="ui attached segment">
                     <div class="ui grid">
 
-                        <div class="three wide column">
+                        <div id="side-bar" class="three wide column">
+                            <section id="viewer" class="ui list">
+                            </section>
+                            <div class="ui divider"></div>
                             <section id="inventory" class="ui items">
                             </section>
                         </div>
 
-                        <div class="nine wide column">
+                        <div id="mid-column" class="nine wide column">
                             <section id="game" class="ui basic segment">
                                 <table id="game-map"></table>
                             </section>
@@ -43,7 +46,17 @@
             </div>
         </div>
 
-        <script id="keybarTemplate" type="text/template" style="display: none;">
+        <script id="viewerTemplate" type="text/template">
+            <div class="item">
+                <img class="ui image" src="/images/<%= imageName %>.png">
+                <div class="content">
+                    <div class="header"><%= objectType %></div>
+                    <%= summary %>
+                </div>
+            </div>
+        </script>
+
+        <script id="keybarTemplate" type="text/template">
             <div class="item">
                 <div class="content">
                     <div class="ui small label"><%= key %></div><%= command %>
@@ -53,12 +66,15 @@
 
         <script src="javascript/class.js"></script>
         <script src="javascript/util.js"></script>
+
         <script src="javascript/htmlview.js"></script>
         <script src="javascript/keyboardInput.js"></script>
+
+        <script src="javascript/game.js"></script>
         <script src="javascript/items.js"></script>
         <script src="javascript/creatures.js"></script>
         <script src="javascript/gamemap.js"></script>
-        <script src="javascript/game.js"></script>
+
         <script src="javascript/main.js"></script>
 
         <script>main();</script>

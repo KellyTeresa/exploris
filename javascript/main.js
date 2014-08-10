@@ -1,6 +1,7 @@
 var GAME_MAP_WIDTH = 25,
     GAME_MAP_HEIGHT = 25,
     PLAYER_START_POSITION = {x: 5, y: 5},
+
     KEY_COMMANDS = {
         'c': 'chopTree',
         'g': 'getItem',
@@ -8,8 +9,26 @@ var GAME_MAP_WIDTH = 25,
         'w': 'placeWall',
         'd': 'placeDoor'
     },
-    ammonitePos = {x: 8, y: 8}
+
+    htmlView,
+    keyboardInput,
+    game
+
     ;
+
+function initializeCreatures(game) {
+    var ammonitePos = {x: 8, y: 8};
+
+    game.map.placeCreature(game.player, PLAYER_START_POSITION);
+
+    // initialize creature(s)
+    var ammonite = Ammonite.create(game.view);
+    game.map.placeCreature(ammonite, ammonitePos);
+    setInterval(function() {
+        var dir = game.map.getRandomDirection();
+        game.tryCreatureMove(ammonite, dir);
+    }.bind(game), 1500);
+}
 
 function populateMap(map) {
     var river = {
@@ -78,16 +97,23 @@ function attachKeyboardInput(keyboardInput, game) {
 }
 
 function main() {
-    var htmlView = HtmlView.create();
-    var game = Game.create(htmlView);
-    var keyboardInput = KeyboardInput.create();
+    htmlView = HtmlView.create();
+    game = Game.create(htmlView);
+    keyboardInput = KeyboardInput.create();
 
     attachKeyboardInput(keyboardInput, game);
-
-    game.start();
     keyboardInput.startListening();
 
+    game.start();
+    initializeCreatures(game);
+
+    $('div.inner').on('mouseover', function(event) {
+        var element = event.target;
+        htmlView.viewItems(element.cell.contents);
+    });
+
     htmlView.populateKeybar(KEY_COMMANDS);
+
     populateMap(game.map);
     populateDialogue(htmlView);
 }

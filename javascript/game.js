@@ -1,3 +1,8 @@
+var GameObject = Class.extend('GameObject', {
+    objectType: 'game-object',
+    summary: 'A thing.'
+});
+
 var Game = Class.extend('Game', {
     initialize: function(htmlView) {
         this.view = htmlView;
@@ -8,19 +13,6 @@ var Game = Class.extend('Game', {
 
     start: function() {
         this.view.initializeMap(this.map.data);
-        this.initializeCreatures();
-    },
-
-    initializeCreatures: function() {
-        this.map.placeCreature(this.player, PLAYER_START_POSITION);
-
-        // initialize creature(s)
-        var ammonite = Ammonite.create(this.view);
-        this.map.placeCreature(ammonite, ammonitePos);
-        setInterval(function() {
-            var dir = this.map.getRandomDirection();
-            this.tryCreatureMove(ammonite, dir);
-        }.bind(this), 1500);
     },
 
     tryCreatureMove: function(creature, dir) {

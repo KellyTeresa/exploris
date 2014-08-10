@@ -1,9 +1,22 @@
+var ITEM_IMAGENAMES = {
+    'water': 'aquarius',
+    'apple': 'shiny-apple',
+    'lumber': 'wood-pile',
+    'tree': 'beech',
+    'flame': 'flame',
+    'ammonite': 'ammonite',
+    'player': 'cowled',
+    'wood-wall': 'wood-planks',
+    'wood-door': 'wooden-door-2'
+};
+
 var HtmlView = Class.extend('HtmlView', {
     initialize: function() {
         this.map = document.getElementById('game-map');
         this.inventory = document.getElementById('inventory');
         this.dialogue = document.getElementById('dialogue');
         this.keybar = document.getElementById('keybar').children[0];
+        this.viewer = document.getElementById('viewer');
     },
 
     initializeMap: function(mapData) {
@@ -17,6 +30,7 @@ var HtmlView = Class.extend('HtmlView', {
                 var inner = document.createElement('div');
                 inner.classList.add('inner');
                 cell.element = inner;
+                inner.cell = cell;
                 element.appendChild(inner);
                 htmlRow.appendChild(element);
             }.bind(this));
@@ -52,5 +66,17 @@ var HtmlView = Class.extend('HtmlView', {
         newDiv.innerText = message;
         $(newDiv).transition('fade down');
         this.dialogue.appendChild(newDiv);
+    },
+
+    viewItems: function(items) {
+        var tmpl = _.template($("#viewerTemplate").text());
+        var $viewer = $(this.viewer);
+
+        $viewer.html(
+            _.map(items, function(item) {
+                item.imageName = ITEM_IMAGENAMES[item.objectType];
+                return tmpl(item);
+            }).join('')
+        );
     }
 });

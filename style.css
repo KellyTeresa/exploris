@@ -12,6 +12,19 @@
     margin-right: .5em;
 }
 
+#side-bar #viewer { height: 200px; }
+#side-bar #viewer .item .image { margin-right: .5em; height: 25px; width: 25px;}
+#side-bar #viewer .item .content { font-size: smaller; }
+
+
+#game {
+    padding: 0;
+}
+
+#mid-column {
+    padding: 0;
+}
+
 /* MY CSS */
 
 #keybar {
@@ -43,6 +56,11 @@ table#game-map {
 
 table#game-map td {
     padding: 0;
+    cursor: pointer;
+}
+
+#game-map td:hover {
+    opacity: 0.5;
 }
 
 table#game-map td div.inner {

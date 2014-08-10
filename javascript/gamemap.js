@@ -79,22 +79,22 @@ var Cell = Class.extend('Cell', {
     },
 
     creatureEnter: function(creature) {
-        this.element.classList.add(creature.creatureType);
+        this.addItem(creature);
     },
 
     creatureLeave: function(creature) {
-        this.element.classList.remove(creature.creatureType);
+        this.removeItem(creature);
     },
 
     addItem: function(item) {
         this.contents.push(item)
-        this.element.classList.add(item.itemType);
+        this.element.classList.add(item.objectType);
     },
 
     removeItem: function(item) {
         var index = this.contents.indexOf(item);
         this.contents.splice(index, 1)
-        this.element.classList.remove(item.itemType);
+        this.element.classList.remove(item.objectType);
     },
 
     popItem: function() {
@@ -117,7 +117,7 @@ var Cell = Class.extend('Cell', {
 
     hasDoor: function() {
         for (var i = 0; i < this.contents.length; i++) {
-            if (this.contents[i].itemType == 'wood-door') {
+            if (this.contents[i].objectType == 'wood-door') {
                 return true;
             }
         };
