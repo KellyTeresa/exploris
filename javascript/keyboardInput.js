@@ -108,6 +108,9 @@ var KeyboardInput = Class.extend('KeyboardInput', {
         if (event.keyCode in KEYCODE_MAPPINGS) {
             var keyPressed = KEYCODE_MAPPINGS[event.keyCode];
             if (keyPressed in this.bindings) {
+                // otherwise there will still be scrolling on up/down arrow etc.
+                event.preventDefault();
+
                 this.bindings[keyPressed]();
             } else {
                 console.log("Unbound keypress", keyPressed);
