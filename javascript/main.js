@@ -4,7 +4,9 @@ var GAME_MAP_WIDTH = 25,
     KEY_COMMANDS = {
         'c': 'chopTree',
         'g': 'getItem',
-        'f': 'lightFlame'
+        'f': 'lightFlame',
+        'w': 'placeWall',
+        'd': 'placeDoor'
     },
     ammonitePos = {x: 8, y: 8}
     ;

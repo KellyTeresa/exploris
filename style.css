@@ -72,12 +72,14 @@ section#dialogue div p {
 
 /* backgrounds on the bottom */
 #game-map .water, #dialogue .water { background-image: url('/images/aquarius.png'); }
+#game-map .wood-wall, #dialogue .wood-wall { background-image: url('/images/wood-planks.png'); }
 
 /* items in the middle */
 #game-map .lumber, #dialogue .lumber { background-image: url('/images/wood-pile.png'); }
 #game-map .apple, #dialogue .apple { background-image: url('/images/shiny-apple.png'); }
 #game-map .tree, #dialogue .tree { background-image: url('/images/beech.png'); }
 #game-map .flame, #dialogue .flame { background-image: url('/images/flame.png'); }
+#game-map .wood-door, #dialogue .wood-door { background-image: url('/images/wooden-door-2.png'); background-size: 25px; }
 
 /* creatures come after because they should go on top */
 #game-map .ammonite, #dialogue .ammonite { background-image: url('/images/ammonite.png'); }

@@ -1,56 +1,3 @@
-var Creature = Class.extend('Creature', {
-    initialize: function(view) {
-        this.inventory = [];
-        this.view = view;
-    },
-
-    addInventory: function(item) {
-        var inventoryItem = {
-            name: item
-        };
-
-        this.inventory.push(inventoryItem);
-        this.view.addInventory(inventoryItem);
-    },
-
-    move: function(cell) {
-        this.cell.creatureLeave(this);
-        this.cell = cell;
-        this.cell.creatureEnter(this);
-    }
-});
-
-var Player = Creature.extend('Player', {
-    creatureType: 'player',
-
-    chopTree: function() {
-        this.cell.contents.forEach(function(item) {
-            if (item.itemType == 'tree') {
-                this.addInventory('lumber');
-                this.cell.removeItem(item);
-
-                var curses = ['mother piss', 'son of a bitch', 'shit', 'fuck', 'oh god no', 'you don\'t even have a fucking axe'];
-                this.view.addDialogue('tree', curses[getRandomInt(0, curses.length)]);
-            }
-        }.bind(this));
-    },
-
-    getItem: function() {
-        var item = this.cell.popItem();
-        if (item) {
-            this.addInventory(item.itemType);
-        }
-    },
-
-    lightFlame: function() {
-        this.cell.addItem(Flame.create());
-    }
-});
-
-var Ammonite = Creature.extend('Ammonite', {
-    creatureType: 'ammonite'
-});
-
 var GameMap = Class.extend('GameMap', {
     initialize: function() {
         this.width = GAME_MAP_WIDTH;
@@ -89,9 +36,7 @@ var GameMap = Class.extend('GameMap', {
         var change = this.positionChanges[dir];
         var newPos = this.calculateNewPosition(cell.position, change);
         if (this.positionOutOfBounds(newPos)) { return false; }
-        var newCell = this.get(newPos);
-        if (newCell.hasWater()) { return false; }
-        return newCell;
+        return this.get(newPos);
     },
 
     placeCreature: function(creature, position) {
@@ -161,15 +106,24 @@ var Cell = Class.extend('Cell', {
         return item;
     },
 
-    hasWater: function() {
-        var hasWater = false;
-        this.contents.forEach(function(item) {
-            if (item.itemType == 'water') {
-                hasWater = true;
+    isPassable: function() {
+        for (var i = 0; i < this.contents.length; i++) {
+            if (this.contents[i].impassable) {
+                return false;
             }
-        });
-        return hasWater;
+        };
+        return true;
+    },
+
+    hasDoor: function() {
+        for (var i = 0; i < this.contents.length; i++) {
+            if (this.contents[i].itemType == 'wood-door') {
+                return true;
+            }
+        };
+        return false;
     }
+
 });
 
 var Game = Class.extend('Game', {
@@ -200,6 +154,8 @@ var Game = Class.extend('Game', {
     tryCreatureMove: function(creature, dir) {
         var newCell = this.map.getMoveCell(creature.cell, dir);
         if (newCell) {
+            if (!newCell.isPassable()) { return false; }
+            if (newCell.hasDoor() && !creature.canOperateDoors) { return false; }
             creature.move(newCell);
         }
     }
