@@ -20,8 +20,10 @@ var Game = Class.extend('Game', {
         if (newCell) {
             if (this.creatureCanEnterCell(creature, newCell)) {
                 creature.move(newCell);
+                return newCell;
             }
         }
+        return false;
     },
 
     creatureCanEnterCell: function(creature, cell) {

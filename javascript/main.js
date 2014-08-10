@@ -91,7 +91,10 @@ function attachKeyboardInput(keyboardInput, game) {
 
     ['left', 'right', 'up', 'down'].forEach(function(dir) {
         keyboardInput.bindKey(dir, function() {
-            game.tryCreatureMove(game.player, dir);
+            var cell = game.tryCreatureMove(game.player, dir);
+            if (cell) {
+                game.view.viewItems(cell.contents);
+            }
         });
     });
 }
@@ -110,6 +113,10 @@ function main() {
     $('div.inner').on('mouseover', function(event) {
         var element = event.target;
         htmlView.viewItems(element.cell.contents);
+    });
+
+    $('#game-map').on('mouseout', function(event) {
+        htmlView.viewItems(game.player.cell.contents);
     });
 
     htmlView.populateKeybar(KEY_COMMANDS);
