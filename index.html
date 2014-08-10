@@ -2,18 +2,62 @@
 <html lang="en">
     <head>
         <title>Exploris</title>
+
+        <link rel="stylesheet" type="text/css" href="semantic/css/semantic.css" />
         <link rel="stylesheet" type="text/css" href="style.css" />
+
+        <script type="text/javascript" src="jquery-2.1.1.js"></script>
+        <script type="text/javascript" src="semantic/javascript/semantic.js"></script>
     </head>
     <body>
-        <div id="container">
-            <section id="inventory"></section>
-            <section id="game">
-                <table id="game-map">
-                </table>
-            </section>
-            <section id="dialogue"></section>
-            <script src="game.js"></script>
+
+        <div id="container" class="ui page grid">
+            <div class="column">
+                <section id="keybar" class="ui top attached segment">
+                    <div class="ui horizontal small divided list">
+
+                        <div class="item">
+                            <div class="content">
+                                <div class="ui small label">b</div>
+                                build
+                            </div>
+                        </div>
+
+                        <div class="item">
+                            <div class="content">
+                                <div class="ui small label">c</div>
+                                chopTree
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+                <div class="ui attached segment">
+                    <div class="ui grid">
+
+                        <div class="three wide column">
+                            <section id="inventory" class="ui items">
+                            </section>
+                        </div>
+
+                        <div class="nine wide column">
+                            <section id="game" class="ui basic segment">
+                                <table id="game-map"></table>
+                            </section>
+                        </div>
+
+                        <div class="four wide column">
+                            <section id="dialogue" class="ui basic segment">
+                            </section>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <script src="game.js"></script>
+
     </body>
 </html>
 

@@ -1,24 +1,38 @@
+/* SEMANTIC OVERRIDES */
+
+.ui.grid > .column {
+    padding: 0 .5em;
+    margin: 0;
+}
+
+#inventory .item {
+    margin-bottom: 10px;
+}
+
+/* MY CSS */
+
+#keybar {
+    font-size: 10px;
+}
+
+#inventory .item {
+    width: 75px;
+    min-height: 75px;
+    height: 75px;
+
+    background-repeat: no-repeat;
+    background-position: 10px 10px;
+}
+
 body {
     font-family: Arial, Verdana, sans-serif;
-
-    background: #fefefe;
 }
 
 div#container {
-    width: 1000px;
-    margin: 25px auto;
-
-    background: #eeeeff;
 }
-
-section { vertical-align: top; }
-section#game { width: 650px; display: inline-block; }
-section#inventory { width: 100px; display: inline-block; }
-section#dialogue { width: 242px; display: inline-block; }
 
 table#game-map {
     border-collapse: collapse;
-    border: 1px solid silver;
     margin: 0 auto;
 }
 
@@ -37,47 +51,31 @@ table#game-map td div.inner {
     background: #ddfedd;
 }
 
-section#inventory {
-    margin-top: 0.75em;
-}
-
-section#inventory div.inventory-item {
-    width: 50px;
-    height: 50px;
-    margin: 0 auto;
-}
-
 section#dialogue {
-    background: #eee;
     color: gray;
 }
 
-section#dialogue div {
-    width: 210px;
-    margin: 0.75em auto;
-
-    border: 1px solid silver;
-
-    background-color: silver;
+#dialogue > .message {
     background-repeat: no-repeat;
-    background-position: 2px 4px;
+    background-position: 8px 12px;
+    padding-left: 40px;
 }
 
 section#dialogue div p {
-    margin: 0;
-    margin-left: 30px;
-    padding: 8px 0;
-    padding-left: 6px;
-    background: #eee;
 }
 
-table#game-map td div.inner.water { background-image: url('/images/aquarius.png'); }
-table#game-map td div.inner.tree { background-image: url('/images/beech.png'); }
-table#game-map td div.inner.ammonite { background-image: url('/images/ammonite.png'); }
-table#game-map td div.inner.apple { background-image: url('/images/shiny-apple.png'); }
-table#game-map td div.inner.player { background-image: url('/images/cowled.png'); }
+table#game-map td .inner.water { background-image: url('/images/aquarius.png'); }
+table#game-map td .inner.tree { background-image: url('/images/beech.png'); }
+table#game-map td .inner.apple { background-image: url('/images/shiny-apple.png'); }
 
-section#inventory div.inventory-item.lumber { background: url('/images/wood-pile.png'); }
+/* creatures come after because they should go on top */
+table#game-map td .inner.ammonite { background-image: url('/images/ammonite.png'); }
 
-section#dialogue div.player { background-image: url('/images/cowled.png'); }
-section#dialogue div.tree { background-image: url('/images/beech.png'); }
+/* player should always be the topmost */
+table#game-map td .inner.player { background-image: url('/images/cowled.png'); }
+
+section#inventory .item.lumber { background-image: url('/images/wood-pile.png'); }
+
+section#dialogue .player { background-image: url('/images/cowled.png'); }
+section#dialogue .tree { background-image: url('/images/beech.png'); }
+section#dialogue .ammonite { background-image: url('/images/ammonite.png'); }

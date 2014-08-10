@@ -3,7 +3,8 @@ var GAME_MAP_WIDTH = 25,
     PLAYER_START_POSITION = {x: 5, y: 5},
     KEY_COMMANDS = {
         'c': 'chopTree'
-    }
+    },
+    ammonitePos = {x: 8, y: 8}
     ;
 
 function populateMap(map) {
@@ -28,7 +29,6 @@ function populateMap(map) {
         {x: 13, y: 5}
     ];
     var apples = [ {x: 6, y: 6} ];
-    var ammonites = [ {x: 8, y: 8} ]
 
     map.drawRiver(river.start, river.path);
 
@@ -38,10 +38,6 @@ function populateMap(map) {
 
     apples.forEach(function(position) {
         map.get(position).addItem('apple');
-    });
-
-    ammonites.forEach(function(position) {
-        map.get(position).addItem('ammonite');
     });
 }
 
@@ -57,6 +53,10 @@ function populateDialogue(htmlView) {
     setTimeout(function() {
         htmlView.addDialogue('player', 'this place fuckin sucks');
     }, 15000);
+
+    setTimeout(function() {
+        htmlView.addDialogue('ammonite', 'wonk');
+    }, 7500);
 }
 
 function getRandomInt(min, max) {
@@ -112,6 +112,10 @@ var Player = Creature.extend('Player', {
     creatureType: 'player'
 });
 
+var Ammonite = Creature.extend('Ammonite', {
+    creatureType: 'ammonite'
+});
+
 var GameMap = {
     create: function() {
         var map = Object.create(GameMap);
@@ -128,6 +132,10 @@ var GameMap = {
 
     get: function(position) {
         return this.data[position.y][position.x];
+    },
+
+    getRandomDirection: function() {
+        return ['left','right','up','down'][getRandomInt(0, 4)];
     },
 
     positionChanges: {
@@ -213,19 +221,26 @@ var Cell = {
     }
 };
 
-var Game = {
-    create: function(htmlView) {
-        var game = Object.create(Game);
-        game.view = htmlView;
-        game.map = GameMap.create();
-        game.player = Player.create(game.view);
-        return game;
+var Game = Class.extend('Game', {
+    initialize: function(htmlView) {
+        this.view = htmlView;
+        this.map = GameMap.create();
+        this.player = Player.create(this.view);
+        this.creatures = [];
     },
 
     start: function() {
         this.initializeKeyboardListener();
         this.view.initializeMap(this.map.data);
-        this.map.placeCreature(this.player, PLAYER_START_POSITION)
+        this.map.placeCreature(this.player, PLAYER_START_POSITION);
+
+        // initialize creature(s)
+        var ammonite = Ammonite.create(this.view);
+        this.map.placeCreature(ammonite, ammonitePos);
+        setInterval(function() {
+            var dir = this.map.getRandomDirection();
+            this.tryCreatureMove(ammonite, dir);
+        }.bind(this), 1500);
     },
 
     initializeKeyboardListener: function(listener) {
@@ -270,15 +285,14 @@ var Game = {
             creature.move(newCell);
         }
     }
-};
+});
 
-var HtmlView = {
-    create: function() {
-        var view = Object.create(HtmlView);
-        view.map = document.getElementById('game-map');
-        view.inventory = document.getElementById('inventory');
-        view.dialogue = document.getElementById('dialogue');
-        return view;
+var HtmlView = Class.extend('HtmlView', {
+    initialize: function() {
+        this.map = document.getElementById('game-map');
+        this.inventory = document.getElementById('inventory');
+        this.dialogue = document.getElementById('dialogue');
+        this.keybar = document.getElementById('keybar');
     },
 
     initializeMap: function(mapData) {
@@ -303,7 +317,9 @@ var HtmlView = {
     addInventory: function(inventoryItem) {
         var newDiv = document.createElement('div');
         inventoryItem.element = newDiv;
-        newDiv.classList.add('inventory-item');
+        newDiv.classList.add('item');
+        newDiv.classList.add('ui');
+        newDiv.classList.add('lumber');
         newDiv.classList.add(inventoryItem.name);
         this.inventory.appendChild(newDiv);
     },
@@ -311,10 +327,16 @@ var HtmlView = {
     addDialogue: function(who, message) {
         var newDiv = document.createElement('div');
         newDiv.classList.add(who);
-        newDiv.innerHTML = '<p>' + message + '</p>';
+        newDiv.classList.add('ui');
+        newDiv.classList.add('attached');
+        newDiv.classList.add('segment');
+        newDiv.classList.add('message');
+        newDiv.innerText = message;
+        $(newDiv).transition('fade down');
         this.dialogue.appendChild(newDiv);
     }
-};
+
+});
 
 function main() {
     var htmlView = HtmlView.create();
