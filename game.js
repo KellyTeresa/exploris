@@ -63,15 +63,33 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-var Player = {
-    create: function(view) {
-        var obj = Object.create(Player);
+var Class = {
+    constructor: {name: 'Class'},
 
-        obj.creatureType = 'player';
-        obj.inventory = [];
-        obj.view = view;
+    extend: function(name, properties) {
+        if(typeof(properties) === 'undefined') properties = {};
+
+        properties.constructor = {name: name};
+
+        var obj = Object.create(this);
+        Object.getOwnPropertyNames(properties).forEach(function(name) {
+            obj[name] = properties[name];
+        });
 
         return obj;
+    },
+
+    create: function() {
+        var obj = Object.create(this);
+        obj.initialize.apply(obj, arguments);
+        return obj;
+    },
+};
+
+var Creature = Class.extend('Creature', {
+    initialize: function(view) {
+        this.inventory = [];
+        this.view = view;
     },
 
     addInventory: function(item) {
@@ -88,7 +106,11 @@ var Player = {
         this.cell = cell;
         this.cell.creatureEnter(this);
     }
-};
+});
+
+var Player = Creature.extend('Player', {
+    creatureType: 'player'
+});
 
 var GameMap = {
     create: function() {
