@@ -1,7 +1,7 @@
 var Game = Class.extend('Game', {
     initialize: function(htmlView) {
         this.view = htmlView;
-        this.map = GameMap.create();
+        this.map = GameMap.create(this.view);
         this.player = Player.create(this.view);
         this.creatures = [];
     },

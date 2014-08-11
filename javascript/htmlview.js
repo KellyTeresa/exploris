@@ -47,6 +47,20 @@ var HtmlView = Class.extend('HtmlView', {
         }
     },
 
+    cellAddItem: function(cell, item) {
+        cell.element.classList.add(item.objectType);
+        if (this.viewer.cell == cell) {
+            this.viewCellItems(cell);
+        }
+    },
+
+    cellRemoveItem: function(cell, item) {
+        cell.element.classList.remove(item.objectType);
+        if (this.viewer.cell == cell) {
+            this.viewCellItems(cell);
+        }
+    },
+
     addInventory: function(inventoryItem) {
         var newDiv = document.createElement('div');
         inventoryItem.element = newDiv;
@@ -68,7 +82,9 @@ var HtmlView = Class.extend('HtmlView', {
         this.dialogue.appendChild(newDiv);
     },
 
-    viewItems: function(items) {
+    viewCellItems: function(cell) {
+        this.viewer.cell = cell;
+        var items = cell.contents;
         var tmpl = _.template($("#viewerTemplate").text());
         var $viewer = $(this.viewer);
 

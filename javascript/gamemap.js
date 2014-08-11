@@ -1,8 +1,8 @@
 var GameMap = Class.extend('GameMap', {
-    initialize: function() {
+    initialize: function(view) {
         this.width = GAME_MAP_WIDTH;
         this.height = GAME_MAP_HEIGHT;
-        this.data = Cell.createCellTable(this.width, this.height);
+        this.data = Cell.createCellTable(this.width, this.height, view);
     },
 
     positionOutOfBounds: function(pos) {
@@ -61,17 +61,18 @@ var GameMap = Class.extend('GameMap', {
 });
 
 var Cell = Class.extend('Cell', {
-    initialize: function(x, y) {
+    initialize: function(x, y, view) {
         this.position = {x: x, y: y};
         this.contents = [];
+        this.view = view;
     },
 
-    createCellTable: function(width, height) {
+    createCellTable: function(width, height, view) {
         var data = [];
         for (var y = 0; y < height; y++) {
             var row = [];
             for (var x = 0; x < width; x++) {
-                row.push(Cell.create(x, y));
+                row.push(Cell.create(x, y, view));
             }
             data.push(row);
         }
@@ -88,13 +89,13 @@ var Cell = Class.extend('Cell', {
 
     addItem: function(item) {
         this.contents.push(item)
-        this.element.classList.add(item.objectType);
+        this.view.cellAddItem(this, item);
     },
 
     removeItem: function(item) {
         var index = this.contents.indexOf(item);
         this.contents.splice(index, 1)
-        this.element.classList.remove(item.objectType);
+        this.view.cellRemoveItem(this, item);
     },
 
     popItem: function() {
