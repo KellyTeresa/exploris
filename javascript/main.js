@@ -1,6 +1,6 @@
-var GAME_MAP_WIDTH = 25,
-    GAME_MAP_HEIGHT = 25,
-    PLAYER_START_POSITION = {x: 5, y: 5},
+var GAME_MAP_WIDTH = 100,
+    GAME_MAP_HEIGHT = 100,
+    PLAYER_START_POSITION = {x: 25, y: 15},
 
     KEY_COMMANDS = {
         'c': 'chopTree',

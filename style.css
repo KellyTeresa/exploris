@@ -48,13 +48,13 @@ body {
 div#container {
 }
 
-table#game-map {
+#game-map {
     border-collapse: collapse;
     margin: 0 auto;
     border: 5px inset #edd;
 }
 
-table#game-map td {
+#game-map td {
     padding: 0;
     cursor: pointer;
 }
@@ -75,7 +75,6 @@ table#game-map td div.inner {
 }
 
 section#dialogue {
-    margin-top: 2px;
     color: gray;
 }
 

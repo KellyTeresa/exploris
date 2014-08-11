@@ -80,6 +80,12 @@ var HtmlView = Class.extend('HtmlView', {
         newDiv.innerText = message;
         $(newDiv).transition('fade down');
         this.dialogue.appendChild(newDiv);
+
+        setTimeout(function() {
+            $(this.dialogue).children().first().animate({
+                'margin-top': '-=' + newDiv.offsetHeight + 'px'
+            }, 2500);
+        }, 10000);
     },
 
     viewCellItems: function(cell) {

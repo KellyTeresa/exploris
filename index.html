@@ -7,13 +7,22 @@
         <link rel="stylesheet" type="text/css" href="vendor/semantic/css/semantic.css" />
         <link rel="stylesheet" type="text/css" href="style.css" />
 
+        <link rel="stylesheet" type="text/css" href="fullscreen-test.css" />
+
         <script type="text/javascript" src="vendor/underscore.js"></script>
         <script type="text/javascript" src="vendor/jquery.js"></script>
         <script type="text/javascript" src="vendor/semantic/javascript/semantic.js"></script>
     </head>
     <body>
 
-        <div id="container" class="ui page grid">
+        <div id="fullscreen-viewer">
+            <table id="game-map"></table>
+        </div>
+
+        <section id="dialogue" class="ui basic segment">
+        </section>
+
+        <div id="container" class="ui page grid" style="display: none;">
             <div class="column">
                 <section id="keybar" class="ui top attached segment">
                     <div class="ui horizontal small divided list">
@@ -32,13 +41,10 @@
 
                         <div id="mid-column" class="nine wide column">
                             <section id="game" class="ui basic segment">
-                                <table id="game-map"></table>
                             </section>
                         </div>
 
                         <div class="four wide column">
-                            <section id="dialogue" class="ui basic segment">
-                            </section>
                         </div>
 
                     </div>
