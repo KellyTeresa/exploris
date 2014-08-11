@@ -25,6 +25,7 @@ var Creature = GameObject.extend('Creature', {
 
 var Player = Creature.extend('Player', {
     objectType: 'player',
+    summary: "It's you.",
     canOperateDoors: true,
 
     chopTree: function() {
