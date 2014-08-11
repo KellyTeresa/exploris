@@ -83,7 +83,7 @@ var HtmlView = Class.extend('HtmlView', {
 
         setTimeout(function() {
             $(this.dialogue).children().first().animate({
-                'margin-top': '-=' + newDiv.offsetHeight + 'px'
+                'margin-top': '-=' + (newDiv.offsetHeight - 1) + 'px'
             }, 2500);
         }, 10000);
     },

@@ -1,5 +1,10 @@
 /* FULLSCREEN TEST */
 
+body {
+    margin: 0;
+    padding: 0
+}
+
 #fullscreen-viewer {
     position: absolute;
     left: 0;
@@ -24,4 +29,21 @@
     overflow: hidden;
     padding-top: 2px;
     margin-top: 0px;
+}
+
+#inventory {
+    position: absolute;
+    top: 0;
+    right: 300px;
+}
+
+#viewer {
+    position: absolute;
+    bottom: 0;
+    right: 1em;
+    width: 200px;
+    height: 200px;
+
+    background: white;
+    padding: 1em;
 }
