@@ -1,0 +1,160 @@
+body {
+  margin: 0;
+  padding: 0; }
+
+#fullscreen-viewer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden; }
+  #fullscreen-viewer #game-map {
+    border-collapse: collapse;
+    margin: 0 auto;
+    border: none; }
+    #fullscreen-viewer #game-map td {
+      padding: 0; }
+      #fullscreen-viewer #game-map td div.inner {
+        width: 25px;
+        height: 25px;
+        padding: 0; }
+  #fullscreen-viewer #dialogue, #fullscreen-viewer #inventory, #fullscreen-viewer #viewer, #fullscreen-viewer #keybar {
+    position: absolute; }
+  #fullscreen-viewer #dialogue {
+    right: 0;
+    top: 1em;
+    bottom: 0;
+    width: 300px;
+    overflow: hidden;
+    padding-top: 2px;
+    margin-top: 0px; }
+  #fullscreen-viewer #inventory {
+    top: 0;
+    right: 300px; }
+    #fullscreen-viewer #inventory #inventory .item {
+      width: 75px;
+      min-height: 75px;
+      height: 75px; }
+  #fullscreen-viewer #viewer {
+    bottom: 0;
+    right: 1em;
+    width: 200px;
+    height: 200px;
+    padding: 1em; }
+  #fullscreen-viewer #keybar {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 600px;
+    height: 50px; }
+
+#viewer {
+  background: white; }
+
+#keybar {
+  font-size: 10px; }
+
+#inventory .item {
+  width: 75px;
+  min-height: 75px;
+  height: 75px;
+  background-repeat: no-repeat;
+  background-position: 10px 10px; }
+
+body {
+  font-family: Arial, Verdana, sans-serif;
+  background-color: #eeeeee; }
+
+#game-map td {
+  cursor: pointer; }
+
+table#game-map td div.inner {
+  text-align: center;
+  font-weight: bold;
+  background-color: #ddfedd; }
+
+table#game-map td div.inner:hover {
+  background-color: #88dd88; }
+
+section#dialogue {
+  color: gray; }
+
+#dialogue > .message {
+  background-repeat: no-repeat;
+  background-position: 8px 12px;
+  padding-left: 40px; }
+
+/* backgrounds on the bottom */
+#game-map .water, #dialogue .water {
+  background-image: url("/images/aquarius.png"); }
+
+#game-map .wood-wall, #dialogue .wood-wall {
+  background-image: url("/images/wood-planks.png"); }
+
+/* items in the middle */
+#game-map .lumber, #dialogue .lumber {
+  background-image: url("/images/wood-pile.png"); }
+
+#game-map .apple, #dialogue .apple {
+  background-image: url("/images/shiny-apple.png"); }
+
+#game-map .tree, #dialogue .tree {
+  background-image: url("/images/beech.png"); }
+
+#game-map .flame, #dialogue .flame {
+  background-image: url("/images/flame.png"); }
+
+#game-map .wood-door, #dialogue .wood-door {
+  background-image: url("/images/wooden-door-2.png"); }
+
+/* creatures come after because they should go on top */
+#game-map .ammonite, #dialogue .ammonite {
+  background-image: url("/images/ammonite.png"); }
+
+/* player should always be the topmost */
+#game-map .player, #dialogue .player {
+  background-image: url("/images/cowled.png"); }
+
+/* inventory has bigger size */
+#inventory div {
+  background-size: 50px; }
+
+#inventory .water {
+  background-image: url("/images/aquarius-500.png"); }
+
+#inventory .lumber {
+  background-image: url("/images/wood-pile-500.png"); }
+
+#inventory .apple {
+  background-image: url("/images/shiny-apple-500.png"); }
+
+#inventory .tree {
+  background-image: url("/images/beech-500.png"); }
+
+#inventory .flame {
+  background-image: url("/images/flame-500.png"); }
+
+#inventory .ammonite {
+  background-image: url("/images/ammonite-500.png"); }
+
+#inventory .player {
+  background-image: url("/images/cowled-500.png"); }
+
+.ui.grid > .column {
+  margin: 5px 0; }
+
+#inventory .item {
+  margin-bottom: 10px; }
+
+#keybar .ui.label {
+  margin-right: 0.5em; }
+
+#viewer {
+  height: 200px; }
+  #viewer .item .image {
+    margin-right: 0.5em;
+    height: 25px;
+    width: 25px; }
+  #viewer .item .content {
+    font-size: smaller; }

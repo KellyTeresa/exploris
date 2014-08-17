@@ -34,7 +34,17 @@ var Player = Creature.extend('Player', {
                 this.addInventory('lumber');
                 this.cell.removeItem(item);
 
-                var curses = ['mother piss', 'son of a bitch', 'shit', 'fuck', 'oh god no', 'you don\'t even have a fucking axe'];
+                var curses = [
+                    "oh my god",
+                    "why",
+                    "you don't even have an axe",
+                    "SWEET JESUS",
+                    "HELP HELP I'M BEING REPRESSED",
+                    "this is an OUTRAGE",
+                    ":-(",
+                    "you'd better build me into something AWESOME"
+                ];
+
                 this.view.addDialogue('tree', curses[getRandomInt(0, curses.length)]);
             }
         }.bind(this));

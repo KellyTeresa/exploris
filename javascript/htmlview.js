@@ -82,9 +82,7 @@ var HtmlView = Class.extend('HtmlView', {
         this.dialogue.appendChild(newDiv);
 
         setTimeout(function() {
-            $(this.dialogue).children().first().animate({
-                'margin-top': '-=' + (newDiv.offsetHeight - 1) + 'px'
-            }, 2500);
+            $(newDiv).transition('fade out');
         }, 10000);
     },
 

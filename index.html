@@ -4,10 +4,10 @@
         <title>Exploris</title>
 
         <link rel="shortcut icon" type="image/png" href="images/ammonite.png" />
-        <link rel="stylesheet" type="text/css" href="vendor/semantic/css/semantic.css" />
-        <link rel="stylesheet" type="text/css" href="style.css" />
 
-        <link rel="stylesheet" type="text/css" href="fullscreen-test.css" />
+        <link rel="stylesheet" type="text/css" href="vendor/semantic/css/semantic.css" />
+
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
 
         <script type="text/javascript" src="vendor/underscore.js"></script>
         <script type="text/javascript" src="vendor/jquery.js"></script>
@@ -16,42 +16,19 @@
     <body>
 
         <div id="fullscreen-viewer">
+
             <table id="game-map"></table>
-        </div>
 
-        <section id="dialogue" class="ui basic segment">
-        </section>
+            <section id="dialogue" class="ui basic segment"></section>
 
-        <section id="viewer" class="ui list">
-        </section>
+            <section id="viewer" class="ui list"></section>
 
-        <section id="inventory" class="ui items">
-        </section>
+            <section id="inventory" class="ui items"></section>
 
-        <div id="container" class="ui page grid" style="display: none;">
-            <div class="column">
-                <section id="keybar" class="ui top attached segment">
-                    <div class="ui horizontal small divided list">
-                    </div>
-                </section>
-                <div class="ui attached segment">
-                    <div class="ui grid">
+            <section id="keybar" class="ui top attached segment">
+                <div class="ui horizontal small divided list"></div>
+            </section>
 
-                        <div id="side-bar" class="three wide column">
-                            <div class="ui divider"></div>
-                        </div>
-
-                        <div id="mid-column" class="nine wide column">
-                            <section id="game" class="ui basic segment">
-                            </section>
-                        </div>
-
-                        <div class="four wide column">
-                        </div>
-
-                    </div>
-                </div>
-            </div>
         </div>
 
         <script id="viewerTemplate" type="text/template">
