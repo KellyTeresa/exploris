@@ -16,5 +16,6 @@ define ['./gameobject'], (GameObject) ->
 
         move: (cell) ->
             this.cell.creatureLeave this
+            cell.creatureEnter this
             this.cell = cell
-            this.cell.creatureEnter this
+            cell

@@ -18,13 +18,12 @@ define ['./gamemap', './player'], (GameMap, Player) ->
             @map.placeCreature creature, position
 
         tryCreatureMove: (creature, dir) ->
-            newCell = this.map.getMoveCell creature.cell, dir
+            newCell = @map.getMoveCell creature.cell, dir
 
-            if newCell and this.creatureCanEnterCell(creature, newCell)
+            if newCell and @creatureCanEnterCell(creature, newCell)
                 creature.move newCell
-                return newCell
             else
-                return false
+                false
 
         creatureCanEnterCell: (creature, cell) ->
             if not cell.isPassable()

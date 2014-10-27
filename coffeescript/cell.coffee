@@ -19,12 +19,12 @@ define ->
             index = @contents.indexOf item
             @contents.splice index, 1
             @view.cellRemoveItem this, item
+            item
 
         popItem: ->
             item = @contents[0]
             return null if not item?
             @removeItem item
-            return item
 
         isPassable: ->
             not @isImpassable()
