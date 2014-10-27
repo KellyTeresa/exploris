@@ -10,7 +10,7 @@ window.KEY_COMMANDS =
     'd': 'placeDoor'
 
 
-initializeCreatures = (game) ->
+initializeCreatures = (game, Ammonite) ->
     ammonitePos = {x: 8, y: 8}
 
     game.map.placeCreature game.player, PLAYER_START_POSITION
@@ -25,7 +25,7 @@ initializeCreatures = (game) ->
     ).bind(game), 1500
 
 
-populateMap = (map) ->
+populateMap = (map, items) ->
     river =
         start: {x: 8, y: -1}
         path: 'r r r u r r u u u r u r r r u'.split(' ')
@@ -52,10 +52,10 @@ populateMap = (map) ->
     map.drawRiver river.start, river.path
 
     trees.forEach (position) ->
-        map.get(position).addItem(Tree.create())
+        map.get(position).addItem(items.Tree.create())
 
     apples.forEach (position) ->
-        map.get(position).addItem(Apple.create())
+        map.get(position).addItem(items.Apple.create())
 
 
 populateDialogue = (htmlView) ->
@@ -89,7 +89,7 @@ attachKeyboardInput = (keyboardInput, game) ->
                 game.view.viewCellItems cell
 
 
-window.main = ->
+define ['./htmlview', './game', './keyboardInput', './ammonite', './items'], (HtmlView, Game, KeyboardInput, Ammonite, items) ->
     htmlView = HtmlView.create()
     game = Game.create htmlView
     keyboardInput = KeyboardInput.create()
@@ -98,7 +98,7 @@ window.main = ->
     keyboardInput.startListening()
 
     game.start()
-    initializeCreatures game
+    initializeCreatures game, Ammonite
 
     $('div.inner').on 'mouseover', (event) ->
         element = event.target
@@ -109,5 +109,5 @@ window.main = ->
 
     htmlView.populateKeybar KEY_COMMANDS
 
-    populateMap game.map
+    populateMap game.map, items
     populateDialogue htmlView

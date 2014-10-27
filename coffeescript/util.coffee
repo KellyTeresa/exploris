@@ -1,2 +1,3 @@
-window.getRandomInt = (min, max) ->
-    Math.floor(Math.random() * (max - min)) + min
+define ->
+    getRandomInt: (min, max) ->
+        Math.floor(Math.random() * (max - min)) + min

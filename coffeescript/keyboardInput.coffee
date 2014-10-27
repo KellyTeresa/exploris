@@ -98,28 +98,29 @@ KEYCODE_MAPPINGS =
     221: ']'
     222: '\''
 
-window.KeyboardInput = Class.extend 'KeyboardInput',
-    initialize: ->
-        @bindings = {}
+define ->
+    Class.extend 'KeyboardInput',
+        initialize: ->
+            @bindings = {}
 
-    handleKey: (event) ->
-        if event.keyCode of KEYCODE_MAPPINGS
-            keyPressed = KEYCODE_MAPPINGS[event.keyCode]
-            if keyPressed of @bindings
-                # otherwise there will still be scrolling on up/down arrow etc.
-                event.preventDefault()
-                @bindings[keyPressed]()
+        handleKey: (event) ->
+            if event.keyCode of KEYCODE_MAPPINGS
+                keyPressed = KEYCODE_MAPPINGS[event.keyCode]
+                if keyPressed of @bindings
+                    # otherwise there will still be scrolling on up/down arrow etc.
+                    event.preventDefault()
+                    @bindings[keyPressed]()
+                else
+                    console.log "Unbound keypress", keyPressed
             else
-                console.log "Unbound keypress", keyPressed
-        else
-            console.log "Unknown keypress", event.keyCode
+                console.log "Unknown keypress", event.keyCode
 
-    startListening: (listener) ->
-        window.addEventListener(
-            'keydown'
-            @handleKey.bind this
-            false
-        )
+        startListening: (listener) ->
+            window.addEventListener(
+                'keydown'
+                @handleKey.bind this
+                false
+            )
 
-    bindKey: (key, callback) ->
-        @bindings[key] = callback
+        bindKey: (key, callback) ->
+            @bindings[key] = callback

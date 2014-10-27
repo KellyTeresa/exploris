@@ -1,23 +1,20 @@
-window.Item = GameObject.extend 'Item',
-    objectType: 'item',
-    impassable: false
+define ['./item'], (Item) ->
+    Apple: Item.extend 'Apple',
+        objectType: 'apple'
 
-window.Apple = Item.extend 'Apple',
-    objectType: 'apple'
+    Tree: Item.extend 'Tree',
+        objectType: 'tree'
 
-window.Tree = Item.extend 'Tree',
-    objectType: 'tree'
+    Water: Item.extend 'Water',
+        objectType: 'water'
+        impassable: true
 
-window.Water = Item.extend 'Water',
-    objectType: 'water'
-    impassable: true
+    Flame: Item.extend 'Flame',
+        objectType: 'flame'
 
-window.Flame = Item.extend 'Flame',
-    objectType: 'flame'
+    WoodWall: Item.extend 'WoodWall',
+        objectType: 'wood-wall'
+        impassable: true
 
-window.WoodWall = Item.extend 'WoodWall',
-    objectType: 'wood-wall'
-    impassable: true
-
-window.WoodDoor = Item.extend 'WoodDoor',
-    objectType: 'wood-door'
+    WoodDoor: Item.extend 'WoodDoor',
+        objectType: 'wood-door'
