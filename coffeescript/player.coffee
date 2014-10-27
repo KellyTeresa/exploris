@@ -1,4 +1,4 @@
-define ['./creature', './items'], (Creature, items) ->
+define ['./creature', './items', './util'], (Creature, items, util) ->
     Creature.extend 'Player',
         objectType: 'player'
         summary: "It's you."
@@ -21,7 +21,7 @@ define ['./creature', './items'], (Creature, items) ->
                         "you'd better build me into something AWESOME"
                     ]
 
-                    this.view.addDialogue 'tree', curses[getRandomInt(0, curses.length)]
+                    this.view.addDialogue 'tree', curses[util.getRandomInt(0, curses.length)]
 
         getItem: ->
             item = @cell.popItem()
