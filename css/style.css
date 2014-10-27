@@ -64,7 +64,7 @@ body {
 
 body {
   font-family: Arial, Verdana, sans-serif;
-  background-color: #eeeeee; }
+  background-color: #eee; }
 
 #game-map td {
   cursor: pointer; }
@@ -75,7 +75,7 @@ table#game-map td div.inner {
   background-color: #ddfedd; }
 
 table#game-map td div.inner:hover {
-  background-color: #88dd88; }
+  background-color: #8D8; }
 
 section#dialogue {
   color: gray; }
@@ -158,3 +158,5 @@ section#dialogue {
     width: 25px; }
   #viewer .item .content {
     font-size: smaller; }
+
+/*# sourceMappingURL=style.css.map */

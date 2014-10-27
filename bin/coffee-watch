@@ -1,0 +1,1 @@
+coffee -wcb -o javascript/ coffeescript/

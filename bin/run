@@ -1,2 +1,1 @@
 ruby -run -ehttpd . -p 8080
-ngrok 8080
