@@ -1,12 +1,12 @@
 ITEM_IMAGENAMES =
-    'water': 'aquarius'
-    'apple': 'shiny-apple'
-    'lumber': 'wood-pile'
-    'tree': 'beech'
-    'flame': 'flame'
-    'ammonite': 'ammonite'
-    'player': 'cowled'
-    'wood-wall': 'wood-planks'
+    'water': 'aquarius-500'
+    'apple': 'shiny-apple-500'
+    'lumber': 'wood-pile-500'
+    'tree': 'beech-500'
+    'flame': 'flame-500'
+    'ammonite': 'ammonite-500'
+    'player': 'cowled-500'
+    'wood-wall': 'wood-planks-500'
     'wood-door': 'wooden-door-2'
 
 

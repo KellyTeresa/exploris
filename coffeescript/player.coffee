@@ -1,4 +1,4 @@
-define ['./creature'], (Creature) ->
+define ['./creature', './items'], (Creature, items) ->
     Creature.extend 'Player',
         objectType: 'player'
         summary: "It's you."
@@ -29,12 +29,12 @@ define ['./creature'], (Creature) ->
                 @addInventory item.objectType
 
         lightFlame: ->
-            @cell.addItem Flame.create()
+            @cell.addItem items.Flame.create()
 
         placeWall: ->
-            @cell.addItem WoodWall.create()
+            @cell.addItem items.WoodWall.create()
 
         placeDoor: ->
-            @cell.addItem WoodDoor.create()
+            @cell.addItem items.WoodDoor.create()
 
 
