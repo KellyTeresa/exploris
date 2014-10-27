@@ -27,12 +27,11 @@ define ->
             return item
 
         isPassable: ->
-            for i in [0...@contents.length]
-                return false if @contents[i].impassable
-            return true
+            not @isImpassable()
+
+        isImpassable: ->
+            _.any @contents, (item) -> item.impassable
 
         hasDoor: ->
-            for i in [0...@contents.length]
-                return true if @contents[i].objectType is 'wood-door'
-            return false
+            _.any @contents, (item) -> item.objectType is 'wood-door'
 

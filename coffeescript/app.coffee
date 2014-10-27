@@ -8,4 +8,4 @@ requirejs.config
         underscore: '../vendor/underscore'
 
 
-requirejs ['./class', 'main']
+requirejs ['./class', 'underscore', 'main']

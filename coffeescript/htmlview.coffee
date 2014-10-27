@@ -10,7 +10,7 @@ ITEM_IMAGENAMES =
     'wood-door': 'wooden-door-2'
 
 
-define ['underscore'], (_) ->
+define ->
     Class.extend 'HtmlView',
         initialize: ->
             @map = document.getElementById 'game-map'
