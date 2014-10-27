@@ -11,18 +11,11 @@ window.KEY_COMMANDS =
 
 
 initializeCreatures = (game, Ammonite) ->
+    game.placeCreature game.player, PLAYER_START_POSITION
+
     ammonitePos = {x: 8, y: 8}
-
-    game.map.placeCreature game.player, PLAYER_START_POSITION
-
     ammonite = Ammonite.create game.view
-
-    game.map.placeCreature ammonite, ammonitePos
-
-    setInterval (->
-        dir = game.map.getRandomDirection()
-        game.tryCreatureMove ammonite, dir
-    ).bind(game), 1500
+    game.placeCreature ammonite, ammonitePos
 
 
 populateMap = (map, items) ->
